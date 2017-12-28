@@ -9,3 +9,5 @@ target/
 # java
 *.class
 
+# log file
+*.log

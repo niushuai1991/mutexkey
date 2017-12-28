@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * JobThread描述
+ * 任务线程
  * </p>
  * 
  * @author niushuai
@@ -35,7 +35,7 @@ public class JobThread extends Thread {
     @Override
     public void run() {
         long start = System.currentTimeMillis();
-        data = new MutexKeyTool(cacheTool) {
+        data = new MutexLock(cacheTool) {
             @Override
             public String loadData() {
                 return new DataService().getData();

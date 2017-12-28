@@ -24,7 +24,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CacheTool {
 
-
     private Map<String, String> map = new ConcurrentHashMap<String, String>();
 
     public boolean add(String key, String value) {

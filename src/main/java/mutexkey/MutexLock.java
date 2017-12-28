@@ -16,18 +16,18 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * MutexKeyStringool描述
+ * 互斥锁工具类
  * </p>
  * 
  * @author niushuai
  * @since 0.0.1
  */
-public abstract class MutexKeyTool {
+public abstract class MutexLock {
 
-    private Logger log = LoggerFactory.getLogger(MutexKeyTool.class);
+    private Logger log = LoggerFactory.getLogger(MutexLock.class);
     private CacheTool cacheTool;
 
-    public MutexKeyTool(CacheTool cacheTool) {
+    public MutexLock(CacheTool cacheTool) {
         this.cacheTool = cacheTool;
     }
 
@@ -52,7 +52,8 @@ public abstract class MutexKeyTool {
                 log.info("通过缓存获取到数据！");
                 break;
             }
-            if (cacheTool.add(mutexKey, "0")) {
+            // 尝试添加互斥锁
+            if (cacheTool.add(mutexKey, "")) {
                 // 如果有缓存数据
                 data = cacheTool.get(key);
                 // 如果有缓存数据
@@ -64,6 +65,7 @@ public abstract class MutexKeyTool {
                 data = loadData();
                 // 添加到缓存中
                 cacheTool.set(key, data);
+                // 删除互斥锁
                 cacheTool.delete(mutexKey);
                 break;
             } else {
